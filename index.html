@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="cool kitty.png">
+    <title>Mangled.info</title>
+</head>
+
+<body>
+    <div id="top_bar">
+        <div id="navigation">
+            <a href="index.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="projects.html">Projects</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </div>
+
+    <div id="inhoud">
+        <h1>Home</h1>
+
+        <div id="text">
+            <p>
+                Uhhh idk what to put here
+            </p>
+        </div>
+    </div>
+
+    <div class="widgets">
+        <div id="discord">
+            <h1>Discord status</h1>
+            <div id="discorddiv">
+                <h2 id="online">Loading...</h2>
+                <h2 id="status">placeholder</h2>
+            </div>
+        </div>
+        <div id="time">
+            <h1>My time</h1>
+            <div>
+                <h2 id="clock">No time available(404)</h2>
+                <h2 id="date"></h2>
+                <h2 id="countdown"></h2>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer">
+        <p>Owned by Mangled</p>
+        <a href="https://youtube.com" style="color:rgb(80, 80, 80);">Discord</a>
+    </footer>
+</body>
+
+<script>
+
+    const targetText = document.getElementById("discord")
+
+    async function DiscordStatus() {
+        const statusElement = document.getElementById("status");
+        const onlineElement = document.getElementById("online");
+        statusElement.innerHTML = "Loading..."
+        statusElement.innerHTML = "Loading..."
+
+        fetch("https://api.lanyard.rest/v1/users/897849927986712637")
+        .then(res => res.json())
+        .then(data => {
+          const customStatus = data.data.activities.find(
+            activity => activity.type === 4
+          );
+
+          const online = data.data.discord_status
+          if (online) {
+            onlineElement.innerHTML = online
+          }
+        
+          if (customStatus) {
+            statusElement.textContent =
+              `${customStatus.emoji?.name ?? ""} ${customStatus.state}`;
+          } else {
+            statusElement.textContent = "No custom status found";
+          }
+        });
+    }
+
+    function updateTime() {
+        const clockelement = document.getElementById("clock");
+        const dateelement = document.getElementById("date");
+
+        let targetDate = new Date("2026-06-10")
+        const countdown = document.getElementById("countdown");
+
+        const now = new Date();
+        let difference = targetDate - now;
+
+        if (difference == 0) {
+            countdown.textContent = "0 days;"
+        };
+        
+        if (difference < 0) {
+            targetDate = new Date("2027-06-10")
+        };
+
+        difference = targetDate - now;
+        const days = Math.ceil(difference / (1000 * 60 * 60 * 24));
+
+        clockelement.textContent = now.toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit",
+            hour12: false,
+        });
+
+        dateelement.textContent = now.toDateString()
+
+        countdown.textContent = `${days} day${days !== 1 ? "s" : ""} until my birthday :3`
+    }
+
+    
+
+    DiscordStatus()
+    setInterval(DiscordStatus, 10000)
+    updateTime()
+    setInterval(updateTime, 1000)
+
+</script>
+
+</html>
