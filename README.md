@@ -10,3 +10,7 @@
 ---
 # What's next?
 - I have no clue what to add next but I'll keep this updated. Might just add more widgets or make the website look prettier.
+---
+# Links
+- Actual website: https://mangled.info
+- Github pages: https://mangled15.github.io/mangled.info/
