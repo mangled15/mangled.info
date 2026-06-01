@@ -117,12 +117,16 @@ body {
     border: rgb(80, 80, 80), solid;
     max-width: clamp(1px, 200px, 450px);
     padding: 5px;
+    margin: 5px;
+    margin-bottom: 10px;
     width: 45%;
 }
 
 #online{
     border: rgb(80, 80, 80), solid;
-    padding: 10px;
+    padding: 5px;
+    margin: 5px;
+    margin-bottom: 10px;
     width: 45%;
 }
 
@@ -132,5 +136,26 @@ body {
     margin-left: auto;
     margin-right: auto;
     text-align: center;
+    max-width: 500px;
+}
+
+#beatsaber{
+    max-width: 480px;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border: rgb(80, 80, 80), solid;
+    
+    padding: 10px;
+}
+
+#scoresaber{
+    border: rgb(80, 80, 80), solid;
+    max-width: 500px;
+}
+#beatleader{
+    margin-top: 10px;
+    border: rgb(80, 80, 80), solid;
     max-width: 500px;
 }

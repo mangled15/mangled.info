@@ -45,6 +45,25 @@
                 <h2 id="countdown"></h2>
             </div>
         </div>
+        <div id="beatsaber">
+            <h1>Beat saber stats</h1>
+            <div id="scoresaber">
+                <h2>Scoresaber</h2>
+                <p>Global rank: <span id="SSrank">Loading...</span></p>
+                <p>PP: <span id="SSpp">Loading...</span></p>
+            </div>
+            <div id="beatleader" hidden>
+                <h2>beatleader</h2>
+                <p>Global rank: <span id="BLrank">Loading...</span></p>
+                <p>PP: <span id="BLpp">Loading...</span></p>
+            </div>
+        </div>
+    </div>
+
+    <div style="color: black; user-select: none;">
+        <h1>filler</h1>
+        <h1>filler</h1>
+        <h1>filler</h1>
     </div>
 
     <footer id="footer">
@@ -60,8 +79,8 @@
     async function DiscordStatus() {
         const statusElement = document.getElementById("status");
         const onlineElement = document.getElementById("online");
-        statusElement.innerHTML = "Loading..."
-        statusElement.innerHTML = "Loading..."
+        //statusElement.innerHTML = "Loading..."
+        //statusElement.innerHTML = "Loading..."
 
         fetch("https://api.lanyard.rest/v1/users/897849927986712637")
         .then(res => res.json())
@@ -117,13 +136,34 @@
         countdown.textContent = `${days} day${days !== 1 ? "s" : ""} until my birthday :3`
     }
 
-    
+    async function loadBeatleader() {
+    try {
+        const response = await fetch("http://fiets.local/beatleaderStats");
+        const data = await response.json();
+
+        document.getElementById("BLrank").textContent =
+            "#" + data.rank;
+
+        document.getElementById("BLpp").textContent =
+            data.pp.toFixed(2);
+    } catch (error) {
+        console.error("Failed to load player data:", error);
+    }
+    }
+
+    async function loadScoresaber() {
+        const response = await fetch("https://scoresaber.com/api/v2/players/76561199187233508");
+        const data = await response.json();
+        document.getElementById("SSrank").textContent = "#" + data.stats.rank;
+        document.getElementById("SSpp").textContent = Math.ceil(data.stats.totalPP);
+    }
 
     DiscordStatus()
     setInterval(DiscordStatus, 10000)
     updateTime()
     setInterval(updateTime, 1000)
+    loadScoresaber()
+    //loadBeatleader()
 
 </script>
-
 </html>
